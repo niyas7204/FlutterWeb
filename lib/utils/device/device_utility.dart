@@ -22,6 +22,10 @@ class DeviceUtility {
     return MediaQuery.of(context).size;
   }
 
+  static bool isDark(BuildContext context) {
+    return MediaQuery.of(context).platformBrightness == Brightness.dark;
+  }
+
   static double getAppBarHeight() {
     return kToolbarHeight;
   }

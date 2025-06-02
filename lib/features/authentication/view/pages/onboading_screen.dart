@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/instance_manager.dart';
-import 'package:myapp/features/onboarding/controller/onboard_controller.dart';
-import 'package:myapp/features/onboarding/view/widgets/onBodingContent.dart';
+import 'package:myapp/features/authentication/controller/onboard_controller.dart';
+import 'package:myapp/features/authentication/view/widgets/onBodingContent.dart';
 import 'package:myapp/utils/constants/colors.dart';
 import 'package:myapp/utils/constants/white_spaces.dart';
 import 'package:myapp/utils/device/device_utility.dart';
@@ -88,13 +88,17 @@ class OnboadingScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
-                      color: Colors.white,
+                      color: DeviceUtility.isDark(context)
+                          ? Colors.white
+                          : Colors.black,
                     ),
                     child: Center(
                       child: Icon(
                         Icons.arrow_forward_ios_rounded,
                         size: 30,
-                        color: Appcolors.primeryColor,
+                        color: DeviceUtility.isDark(context)
+                            ? Colors.black
+                            : Colors.white,
                       ),
                     ),
                   ),
