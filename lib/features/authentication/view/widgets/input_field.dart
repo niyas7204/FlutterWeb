@@ -39,8 +39,7 @@ class InputField extends StatelessWidget {
         prefixIcon: Icon(
           preficIcon,
           color: Colors.grey,
-          fontWeight: FontWeight.w600,
-        ),
+         ),
         label: Text(label),
       ),
     );
