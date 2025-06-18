@@ -1,0 +1,21 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#000000"
+  image: assets/logo/cart_resized.png
+  image_dark: assets/logo/cart_resized.png
+  icon_background_color: "#FFFFFF"
+  icon_background_color_dark: "#000000"
+ 
+
+  android_12:
+    color: "#FFFFFF"
+    color_dark: "#000000"
+    image: assets/logo/cart_resized.png
+    image_dark: assets/logo/cart_resized.png
+    icon_background_color_dark: "#000000"
+    icon_background_color: "#FFFFFF"
+    
+
+  web: false
+
+ 

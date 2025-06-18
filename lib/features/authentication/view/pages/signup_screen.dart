@@ -1,16 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:myapp/features/authentication/controller/signup_controller.dart';
 import 'package:myapp/features/authentication/view/widgets/input_field.dart';
 import 'package:myapp/utils/constants/colors.dart';
 import 'package:myapp/utils/constants/white_spaces.dart';
+import 'package:myapp/features/authentication/view/widgets/decorations.dart';
+import 'package:myapp/utils/validators/auth_validation.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
+    final signupController = Get.put(SignupController());
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -26,50 +31,80 @@ class SignupScreen extends StatelessWidget {
                 ),
                 WhiteSpaces.height10,
                 Form(
+                  key: signupController.signupFormKey,
                   child: Column(
                     children: [
                       Row(
                         children: [
                           Expanded(
-                            child: InputField(
-                              preficIcon: Iconsax.user,
-                              label: "First Name",
-                              controller: controller,
+                            child: TextFormField(
+                              controller: signupController.firstController,
+                              decoration: WidgetDecorations.authInputDecoration(
+                                context: context,
+                                prefixIcon: Iconsax.user,
+                                label: "First Name",
+                              ),
+                              validator: (value) =>
+                                  AuthValidation.validateEmpty(),
                             ),
                           ),
                           WhiteSpaces.width10,
                           Expanded(
-                            child: InputField(
-                              preficIcon: Iconsax.user,
-                              label: "Last Name",
-                              controller: controller,
+                            child: TextFormField(
+                              decoration: WidgetDecorations.authInputDecoration(
+                                context: context,
+                                prefixIcon: Iconsax.user,
+                                label: "Last Name",
+                              ),
+                              validator: (value) =>
+                                  AuthValidation.validateEmpty(),
+                              controller: signupController.lastNameController,
                             ),
                           ),
                         ],
                       ),
                       WhiteSpaces.height10,
-                      InputField(
-                        preficIcon: Iconsax.user,
-                        label: "User Name",
-                        controller: controller,
+                      TextFormField(
+                        decoration: WidgetDecorations.authInputDecoration(
+                          context: context,
+                          prefixIcon: Iconsax.user,
+                          label: "User Name",
+                        ),
+                        validator: (value) => AuthValidation.validateEmpty(),
+                        controller: signupController.userNameController,
                       ),
                       WhiteSpaces.height10,
-                      InputField(
-                        preficIcon: Iconsax.direct_right,
-                        label: "Email",
-                        controller: controller,
+                      TextFormField(
+                        decoration: WidgetDecorations.authInputDecoration(
+                          context: context,
+                          prefixIcon: Iconsax.direct_right,
+                          label: "Email",
+                        ),
+                        validator: (value) => AuthValidation.emailValidation(),
+                        controller: signupController.emailController,
+                      ),
+
+                      WhiteSpaces.height10,
+                      TextFormField(
+                        decoration: WidgetDecorations.authInputDecoration(
+                          context: context,
+                          prefixIcon: Iconsax.user,
+
+                          label: "Phone Number",
+                        ),
+                        validator: (value) => AuthValidation.validateEmpty(),
+                        controller: signupController.phoneController,
                       ),
                       WhiteSpaces.height10,
-                      InputField(
-                        preficIcon: Iconsax.user,
-                        label: "Phone Number",
-                        controller: controller,
-                      ),
-                      WhiteSpaces.height10,
-                      InputField(
-                        preficIcon: Iconsax.password_check,
-                        label: "Password",
-                        controller: controller,
+                      TextFormField(
+                        decoration: WidgetDecorations.authInputDecoration(
+                          context: context,
+                          prefixIcon: Iconsax.password_check,
+                          label: "Password",
+                        ),
+                        validator: (value) =>
+                            AuthValidation.passwordValidation(),
+                        controller: signupController.passwordController,
                       ),
                       WhiteSpaces.height10,
                       Row(
@@ -100,16 +135,21 @@ class SignupScreen extends StatelessWidget {
                         ],
                       ),
                       WhiteSpaces.height20,
-                      Container(
-                        height: 53,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Appcolors.primeryColor,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Create Account",
-                            style: Theme.of(context).textTheme.titleLarge,
+                      GestureDetector(
+                        onTap: () {
+                          signupController.signUp();
+                        },
+                        child: Container(
+                          height: 53,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Appcolors.primeryColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Create Account",
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
                           ),
                         ),
                       ),

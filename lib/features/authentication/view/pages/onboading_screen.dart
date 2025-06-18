@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:myapp/features/authentication/controller/onboard_controller.dart';
 import 'package:myapp/features/authentication/view/widgets/onBodingContent.dart';
@@ -10,12 +11,24 @@ import 'package:myapp/utils/constants/white_spaces.dart';
 import 'package:myapp/utils/device/device_utility.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OnboadingScreen extends StatelessWidget {
+class OnboadingScreen extends StatefulWidget {
   const OnboadingScreen({super.key});
+
+  @override
+  State<OnboadingScreen> createState() => _OnboadingScreenState();
+}
+
+class _OnboadingScreenState extends State<OnboadingScreen> {
+  @override
+  void initState() {
+    Get.put(OnboardController());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final onBoardController = Get.put(OnboardController());
+
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -66,17 +79,22 @@ class OnboadingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              top: DeviceUtility.getAppBarHeight(),
-              right: 20,
-              child: TextButton(
-                onPressed: onBoardController.skipPage,
-                child: Text(
-                  "Skip",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ),
+            Obx(
+              () => onBoardController.currentPageIndex.value != 2
+                  ? Positioned(
+                      top: DeviceUtility.getAppBarHeight(),
+                      right: 20,
+                      child: TextButton(
+                        onPressed: onBoardController.skipPage,
+                        child: Text(
+                          "Skip",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    )
+                  : SizedBox(),
             ),
+
             Positioned(
               bottom: 50,
               right: 20,
