@@ -3,10 +3,24 @@ import 'package:get/get.dart';
 import 'package:myapp/utils/constants/colors.dart';
 
 class AppAlerts {
-  static void warningSnakbar({required String title, String message = ''}) {
+  static void errorSnakbar({required String title, String message = ''}) {
     Get.snackbar(
       title,
       message,
+      titleText: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      messageText: Text(
+        message,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 14, color: Colors.white),
+      ),
       isDismissible: true,
       colorText: Colors.white,
       backgroundColor: Color(0xFFBE3144),
@@ -23,12 +37,26 @@ class AppAlerts {
     );
   }
 
-  static void erroSnakbar({required String title, String message = ''}) {
+  static void warningSnakbar({required String title, String message = ''}) {
     Get.snackbar(
       title,
       message,
+      titleText: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      messageText: Text(
+        message,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 14, color: Colors.white),
+      ),
       isDismissible: true,
-      colorText: Colors.red,
+      colorText: Colors.white,
       backgroundColor: Appcolors.primeryColor,
     );
   }

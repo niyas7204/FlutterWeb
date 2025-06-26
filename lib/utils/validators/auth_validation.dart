@@ -21,7 +21,7 @@ class AuthValidation {
     return null;
   }
 
-  static String? validateEmpty({String? value, String? fieldName}) {
+  static String? validateEmpty({String? value, required String fieldName}) {
     if (value == null || value.isEmpty) {
       return "$fieldName is Required";
     }

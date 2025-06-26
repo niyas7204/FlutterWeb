@@ -91,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                     WhiteSpaces.height20,
                     GestureDetector(
                       onTap: () {
-                        Get.to(SignupScreen());
+                        Get.to(() => SignupScreen());
                       },
                       child: Container(
                         height: 53,

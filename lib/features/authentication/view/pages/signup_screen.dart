@@ -35,6 +35,7 @@ class SignupScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: TextFormField(
@@ -45,7 +46,9 @@ class SignupScreen extends StatelessWidget {
                                 label: "First Name",
                               ),
                               validator: (value) =>
-                                  AuthValidation.validateEmpty(),
+                                  AuthValidation.validateEmpty(
+                                    fieldName: "Name",
+                                  ),
                             ),
                           ),
                           WhiteSpaces.width10,
@@ -56,8 +59,7 @@ class SignupScreen extends StatelessWidget {
                                 prefixIcon: Iconsax.user,
                                 label: "Last Name",
                               ),
-                              validator: (value) =>
-                                  AuthValidation.validateEmpty(),
+
                               controller: signupController.lastNameController,
                             ),
                           ),
@@ -70,7 +72,9 @@ class SignupScreen extends StatelessWidget {
                           prefixIcon: Iconsax.user,
                           label: "User Name",
                         ),
-                        validator: (value) => AuthValidation.validateEmpty(),
+                        validator: (value) => AuthValidation.validateEmpty(
+                          fieldName: "User Name",
+                        ),
                         controller: signupController.userNameController,
                       ),
                       WhiteSpaces.height10,
@@ -92,7 +96,9 @@ class SignupScreen extends StatelessWidget {
 
                           label: "Phone Number",
                         ),
-                        validator: (value) => AuthValidation.validateEmpty(),
+                        validator: (value) => AuthValidation.validateEmpty(
+                          fieldName: "Phone Number",
+                        ),
                         controller: signupController.phoneController,
                       ),
                       WhiteSpaces.height10,
@@ -101,7 +107,19 @@ class SignupScreen extends StatelessWidget {
                           context: context,
                           prefixIcon: Iconsax.password_check,
                           label: "Password",
+                          suffixIcon: Obx(() {
+                            return GestureDetector(
+                              onTap: () => signupController.hidePassword.value =
+                                  !signupController.hidePassword.value,
+                              child: Icon(
+                                signupController.hidePassword.value
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                              ),
+                            );
+                          }),
                         ),
+                        obscureText: signupController.hidePassword.value,
                         validator: (value) =>
                             AuthValidation.passwordValidation(),
                         controller: signupController.passwordController,
@@ -109,7 +127,15 @@ class SignupScreen extends StatelessWidget {
                       WhiteSpaces.height10,
                       Row(
                         children: [
-                          Checkbox(value: true, onChanged: (value) {}),
+                          Obx(() {
+                            return Checkbox(
+                              value: signupController.acceptPrivacyPolicy.value,
+                              onChanged: (value) {
+                                signupController.acceptPrivacyPolicy.value =
+                                    value!;
+                              },
+                            );
+                          }),
                           RichText(
                             text: TextSpan(
                               children: [

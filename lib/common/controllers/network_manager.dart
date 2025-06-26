@@ -24,7 +24,7 @@ class NetworkManager extends GetxController {
     _connectivityStatus.value = result;
     if (_connectivityStatus.isEmpty ||
         _connectivityStatus.contains(ConnectivityResult.none)) {
-      AppAlerts.warningSnakbar(title: "Network Not Found");
+      AppAlerts.errorSnakbar(title: "Network Not Found");
     }
   }
 
